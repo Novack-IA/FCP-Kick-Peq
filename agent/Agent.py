@@ -9,7 +9,7 @@ class Agent(Base_Agent):
                  team_name:str, enable_log, enable_draw, wait_for_server=True, is_fat_proxy=False) -> None:
         
         # define robot type
-        robot_type = (0,1,1,1,2,3,3,3,4,4,4)[unum-1]
+        robot_type = (1,0,0,2,2,1,1,1,1,1,1)[unum-1]
 
         # Initialize base agent
         # Args: Server IP, Agent Port, Monitor Port, Uniform No., Robot Type, Team Name, Enable Log, Enable Draw, play mode correction, Wait for Server, Hear Callback

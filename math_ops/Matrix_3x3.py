@@ -111,9 +111,9 @@ class Matrix_3x3():
         if shortcut:
             return shortcut(rotation_rad, in_place)
             
-        c = np.math.cos(rotation_rad)
+        c = np.cos(rotation_rad)
         c1 = 1 - c
-        s = np.math.sin(rotation_rad)
+        s = np.sin(rotation_rad)
         x = rotation_vec[0]
         y = rotation_vec[1]
         z = rotation_vec[2]
@@ -164,8 +164,8 @@ class Matrix_3x3():
         if rotation_rad == 0: 
             return self if in_place else Matrix_3x3(self)
  
-        c = np.math.cos(rotation_rad)
-        s = np.math.sin(rotation_rad)
+        c = np.cos(rotation_rad)
+        s = np.sin(rotation_rad)
 
         mat = np.array([
         [1, 0, 0],
@@ -194,8 +194,8 @@ class Matrix_3x3():
         if rotation_rad == 0: 
             return self if in_place else Matrix_3x3(self)
  
-        c = np.math.cos(rotation_rad)
-        s = np.math.sin(rotation_rad)
+        c = np.cos(rotation_rad)
+        s = np.sin(rotation_rad)
 
         mat = np.array([
         [ c, 0, s],
@@ -224,8 +224,8 @@ class Matrix_3x3():
         if rotation_rad == 0: 
             return self if in_place else Matrix_3x3(self)
  
-        c = np.math.cos(rotation_rad)
-        s = np.math.sin(rotation_rad)
+        c = np.cos(rotation_rad)
+        s = np.sin(rotation_rad)
 
         mat = np.array([
         [ c,-s, 0],

@@ -44,12 +44,13 @@ class Behavior():
 
         # Declaration of behaviors
         from behaviors.custom.Basic_Kick.Basic_Kick import Basic_Kick
+        from behaviors.custom.Kick.Kick import Kick
         from behaviors.custom.Dribble.Dribble import Dribble
         from behaviors.custom.Fall.Fall import Fall
         from behaviors.custom.Get_Up.Get_Up import Get_Up
         from behaviors.custom.Step.Step import Step
         from behaviors.custom.Walk.Walk import Walk
-        classes = [Basic_Kick,Dribble,Fall,Get_Up,Step,Walk]
+        classes = [Basic_Kick,Kick,Dribble,Fall,Get_Up,Step,Walk]
 
         '''---- End of manual declarations ----'''
 

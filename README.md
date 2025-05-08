@@ -1,3 +1,81 @@
+# 基于FC Portugal Codebase的踢球训练环境  
+
+![](https://github.com/GrayJimars/FCP-Kick/blob/main/Kick.gif?raw=true)
+
+## 准备
+1. 配置训练环境（列表仅供参考，因为包随时会更新）：  
+```
+conda               25.1.1  
+python              3.12.9  
+```
+```
+numpy               2.2.5  
+pybind11            2.13.6  
+psutil              7.0.0  
+stable-baselines3   2.6.0  
+gym                 0.26.2  
+shimmy              2.0.0   
+```
+  
+2. **仔细阅读**以下文件中的**代码和注释**   
+[scripts/gyms/Kick.py](https://github.com/GrayJimars/FCP-Kick/tree/main/scripts/gyms/Kick.py)  
+
+3. 由于**参数并非最优**，请尝试修改参数提高上限，见**期望**
+
+## 训练
+注意机器人类型
+```
+python Run_Utils.py -r 1  
+```
+```
+Kick  
+```
+```
+Train——从头训练  
+Test——导出.pkl  
+Retrain——继续训练  
+```
+## 使用
+1. 导出.pkl文件  
+
+2. **仔细阅读**以下文件中的**代码和注释**   
+[behaviors/custom/Kick/Env.py](https://github.com/GrayJimars/FCP-Kick/tree/main/behaviors/custom/Kick/Env.py)  
+[behaviors/custom/Kick/Kick.py](https://github.com/GrayJimars/FCP-Kick/tree/main/behaviors/custom/Kick/Kick.py)   
+
+3. 编写Your_Kick.py和Your_Env.py  
+4. 在[behaviors/Behavior.py](https://github.com/GrayJimars/FCP-Kick/tree/main/behaviors/Behavior.py)中添加行为  
+5. 参考Run_Kick_Test.py进行测试  
+## 预期  
+目标距离为18米，机器人类型为1
+```
+精度 = (奖励/最高奖励)**(1/PRECISE_INDEX)  
+误差 = 目标距离*(1-精度)  
+```
+> PRECISE_INDEX=2，n_steps_per_env=128，minibatch_size=64，learning_rate=3e-4  
+
+| 步数 | 最大奖励 | 最大精度 | 最小误差 | 
+| --- | --- | --- | --- | 
+| 1024000 | 9.76 | 57% | 7.73m | 
+| 2048000 | 13.16 | 66% | 6.07m | 
+| 5120000 | 19.77 | 81% | 3.39m | 
+| 10240000 | 22.72 | 87% | 2.34m |   
+
+> PRECISE_INDEX=3，n_steps_per_env=128，minibatch_size=64，learning_rate=3e-4  
+
+| 步数 | 最大奖励 | 最大精度 | 最小误差 | 
+| --- | --- | --- | --- | 
+| 15360000 | 20.94 | 89% | 1.99m |
+
+> PRECISE_INDEX=3，n_steps_per_env=256，minibatch_size=128，learning_rate=1e-4  
+
+| 步数 | 最大奖励 | 最大精度 | 最小误差 | 
+| --- | --- | --- | --- | 
+| 20480000 | 24.22 | 93% | 1.24m |  
+| 25600000 | 25.55 | 95% | 0.94m |  
+
+25M步后，Test平均奖励为20（能踢15米以上），对于15米内的射门足够用了  
+由于**参数并非最优**，请尝试修改参数提高上限  
+
 # FC Portugal Codebase <br> for RoboCup 3D Soccer Simulation League
 
 ![](https://s5.gifyu.com/images/Siov6.gif)
