@@ -108,16 +108,19 @@ class Agent(Base_Agent):
 
         if np.linalg.norm(pos - r.loc_head_position[:2]) > 0.1 or self.behavior.is_ready("Get_Up"):
             
-            # --- CORREÇÃO APLICADA AQUI ---
+            # --- CORREÇÃO DEFINITIVA (Baseada no Bug Report) ---
             # Calcula a rotação ideal para o robô olhar para o centro do campo
             target_rotation = M.vector_angle((-pos[0], -pos[1]))
             
-            # Se a rotação for exatamente 0, adiciona uma perturbação mínima
-            # para evitar o crash do motor de física ODE.
-            if target_rotation == 0.0:
-                target_rotation = 0.001
+            # Arredonda o ângulo para 5 casas decimais para uma comparação mais estável
+            rounded_rotation = round(target_rotation, 5)
+
+            # Verifica se o ângulo arredondado é um múltiplo de 90 graus.
+            # Esta é a causa documentada do crash no motor de física ODE.
+            if rounded_rotation % 90.0 == 0.0:
+                target_rotation += 0.001
             
-            # Executa o beam com a rotação corrigida
+            # Executa o beam com a rotação segura
             self.scom.commit_beam(pos, target_rotation)
             # --- FIM DA CORREÇÃO ---
 
@@ -127,7 +130,7 @@ class Agent(Base_Agent):
             else:
                 self.fat_proxy_cmd += "(proxy dash 0 0 0)"
                 self.fat_proxy_walk = np.zeros(3)
-
+    
     def move(self, target_2d=(0,0), orientation=None, is_orientation_absolute=True,
              avoid_obstacles=True, priority_unums=[], is_aggressive=False, timeout=3000):
         r = self.world.robot
