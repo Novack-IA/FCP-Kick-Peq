@@ -13,8 +13,26 @@ class Kick:
         self.description = "Kick"
         self.auto_head = False
         self.env = Env(base_agent)
-        with open(M.get_active_directory('/behaviors/custom/Kick/Kick_R1_25.6Msteps.pkl'), "rb") as f:
+        
+        # Lista com os caminhos para todos os modelos de chute
+        model_paths = [
+            "/behaviors/custom/Kick/Kick_R0.pkl",
+            "/behaviors/custom/Kick/Kick_R1.pkl",
+            "/behaviors/custom/Kick/Kick_R2.pkl",
+            "/behaviors/custom/Kick/Kick_R3.pkl",
+            "/behaviors/custom/Kick/Kick_R4.pkl"
+        ]
+
+        # Obtém o tipo do robô atual
+        robot_type = self.world.robot.type
+
+        # Carrega o arquivo .pkl correspondente
+        model_file_path = M.get_active_directory(model_paths[robot_type])
+        with open(model_file_path, "rb") as f:
             self.model = pickle.load(f)
+
+
+
         r_type = self.world.robot.type
         self.ball_x_limits = ((0.19,0.215), (0.2,0.22), (0.19,0.22), (0.2,0.215), (0.2,0.215))[r_type]
         self.ball_y_limits = ((-0.115,-0.1), (-0.125,-0.095), (-0.12,-0.1), (-0.13,-0.105), (-0.09,-0.06))[r_type]

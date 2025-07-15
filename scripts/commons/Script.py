@@ -23,7 +23,7 @@ class Script():
         self.options = {'i': ('Server Hostname/IP', 'localhost'),
                         'p': ('Agent Port',         '3100'),
                         'm': ('Monitor Port',       '3200'),
-                        't': ('Team Name',          'FCPortugal'),
+                        't': ('Team Name',          'Pequi-Mecanico'),
                         'u': ('Uniform Number',     '1'),
                         'r': ('Robot Type',         '1'),
                         'P': ('Penalty Shootout',   '0'),
