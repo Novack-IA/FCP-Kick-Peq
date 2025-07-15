@@ -107,7 +107,17 @@ class Agent(Base_Agent):
             pos[0] = -2.3 
 
         if np.linalg.norm(pos - r.loc_head_position[:2]) > 0.1 or self.behavior.is_ready("Get_Up"):
-            self.scom.commit_beam(pos, M.vector_angle((-pos[0],-pos[1])))
+                # Em agent/Agent.py, dentro do método beam()
+
+            # Calcula a rotação ideal
+            target_rotation = M.vector_angle((-pos[0], -pos[1]))
+            
+            # --- CORREÇÃO APLICADA AQUI ---
+            # Adiciona uma perturbação mínima para evitar o crash do motor de física ODE
+            final_rotation = target_rotation + 0.001
+            
+            # Executa o beam com a rotação corrigida
+            self.scom.commit_beam(pos, final_rotation)
         else:
             if self.fat_proxy_cmd is None:
                 self.behavior.execute("Zero_Bent_Knees_Auto_Head")
