@@ -37,7 +37,7 @@ host=\${1:-localhost}
 port=\${2:-3100}
 
 for i in {1..11}; do
-  ./fcp -i \$host -p \$port -u \$i -t FCPortugal &
+  ./fcp -i \$host -p \$port -u \$i -t Pequi-Mecanico &
 done
 EOF
 
@@ -50,8 +50,8 @@ export OMP_NUM_THREADS=1
 host=\${1:-localhost}
 port=\${2:-3100}
 
-./fcp -i \$host -p \$port -u 1  -t FCPortugal -P 1 &
-./fcp -i \$host -p \$port -u 11 -t FCPortugal -P 1 &
+./fcp -i \$host -p \$port -u 1  -t Pequi-Mecanico -P 1 &
+./fcp -i \$host -p \$port -u 11 -t Pequi-Mecanico -P 1 &
 EOF
 
 # start_fat_proxy.sh
@@ -64,7 +64,7 @@ host=\${1:-localhost}
 port=\${2:-3100}
 
 for i in {1..11}; do
-  ./fcp -i \$host -p \$port -u \$i -t FCPortugal -F 1 &
+  ./fcp -i \$host -p \$port -u \$i -t Pequi-Mecanico -F 1 &
 done
 EOF
 
